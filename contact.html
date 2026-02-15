@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Reshma Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --fg: #f0f0f5;
+    --fg-muted: #9898a8;
+    --accent-warm: #e07a5f;
+    --accent-warm-light: #f4a261;
+    --accent-cool: #3d9a8b;
+    --accent-cool-light: #52b5a4;
+    --card-bg: rgba(18, 18, 26, 0.7);
+    --border: rgba(224, 122, 95, 0.2);
+    --glow-warm: rgba(224, 122, 95, 0.4);
+    --glow-cool: rgba(61, 154, 139, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===== Animated Background ===== */
+.floating-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-warm);
+    top: -100px;
+    right: -100px;
+    animation: floatOrb1 20s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-cool);
+    bottom: -50px;
+    left: -50px;
+    animation: floatOrb2 25s ease-in-out infinite;
+}
+
+.orb-3 {
+    width: 200px;
+    height: 200px;
+    background: var(--accent-warm-light);
+    top: 50%;
+    left: 30%;
+    animation: floatOrb3 18s ease-in-out infinite;
+}
+
+@keyframes floatOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-50px, 80px) scale(1.1); }
+    50% { transform: translate(-100px, 40px) scale(0.9); }
+    75% { transform: translate(-30px, 100px) scale(1.05); }
+}
+
+@keyframes floatOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(80px, -60px) scale(1.15); }
+    66% { transform: translate(40px, -100px) scale(0.85); }
+}
+
+@keyframes floatOrb3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, -40px) scale(1.2); }
+}
+
+/* ===== Grid Pattern ===== */
+.grid-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(224, 122, 95, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224, 122, 95, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ===== Particle Canvas ===== */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ===== Header ===== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 70px;
+    backdrop-filter: blur(20px);
+    background: rgba(10, 10, 15, 0.8);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    padding: 15px 70px;
+    background: rgba(10, 10, 15, 0.95);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-warm), var(--accent-warm-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-warm);
+    transition: all 0.3s ease;
+}
+
+.logo:hover img {
+    transform: rotate(360deg) scale(1.1);
+    box-shadow: 0 0 20px var(--glow-warm);
+}
+
+/* ===== Navigation ===== */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--fg-muted);
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+    padding: 8px 0;
+    transition: all 0.3s ease;
+}
+
+nav a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-warm), var(--accent-cool));
+    transition: width 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--fg);
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
+nav a.active {
+    color: var(--accent-warm);
+}
+
+nav a.active::before {
+    width: 100%;
+}
+
+/* ===== Mobile Menu ===== */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 2px;
+    background: var(--fg);
+    transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ===== Container ===== */
+.container {
+    position: relative;
+    padding: 140px 70px 70px;
+    z-index: 10;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* ===== Page Title ===== */
+.page-title {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.page-title h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    color: var(--fg);
+}
+
+.page-title h1 span {
+    background: linear-gradient(135deg, var(--accent-warm), var(--accent-cool));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Card Style ===== */
+.card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    border-color: rgba(224, 122, 95, 0.4);
+}
+
+/* ===== Contact Info ===== */
+.contact-card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--accent-warm-light);
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+.info {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: var(--fg-muted);
+    font-size: 15px;
+}
+
+.info strong {
+    color: var(--fg);
+    font-weight: 600;
+}
+
+.note {
+    margin-top: 30px;
+    font-size: 13px;
+    color: var(--fg-muted);
+    font-style: italic;
+    border-left: 2px solid var(--accent-cool);
+    padding-left: 15px;
+}
+
+/* ===== Form Card ===== */
+.form-card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--accent-warm-light);
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+/* ===== Form ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input, textarea {
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--fg);
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-warm);
+    box-shadow: 0 0 0 3px var(--glow-warm);
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--fg-muted);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ===== Button ===== */
+button {
+    padding: 16px 32px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent-warm), var(--accent-warm-light));
+    color: #fff;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 20px rgba(224, 122, 95, 0.3);
+    align-self: flex-start;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(224, 122, 95, 0.4);
+}
+
+/* ===== Footer ===== */
+footer {
+    position: relative;
+    padding: 40px 70px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+}
+
+footer p {
+    color: var(--fg-muted);
+    font-size: 14px;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 900px) {
+    header {
+        padding: 20px 30px;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        flex-direction: column;
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 100px 40px;
+        gap: 25px;
+        transition: right 0.4s ease;
+        border-left: 1px solid var(--border);
+    }
+    
+    nav ul.active {
+        right: 0;
+    }
+    
+    .container {
+        padding: 120px 25px 50px;
+        grid-template-columns: 1fr;
+    }
+
+    .page-title h1 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 15px 20px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .page-title h1 {
+        font-size: 32px;
+    }
+    
+    .card {
+        padding: 30px;
+    }
+    
+    footer {
+        padding: 30px 20px;
+    }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Elements -->
+<div class="floating-orb orb-1"></div>
+<div class="floating-orb orb-2"></div>
+<div class="floating-orb orb-3"></div>
+<div class="grid-pattern"></div>
+<canvas id="particles"></canvas>
+
+<!-- Header -->
+<header id="header">
+    <div class="logo">
+        <img src="C:\Users\vrash\OneDrive\Documents\reshma.jpeg" alt="Reshma">
+       
+    </div>
+    
+    <nav>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Page Title -->
+    <div class="page-title">
+        <h1>Get In <span>Touch</span></h1>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-card card">
+        <h2>Contact Information</h2>
+        
+        <div class="info"><strong>Email:</strong> vreshma257@gmail.com</div>
+        <div class="info"><strong>Phone:</strong> +91 9133654575</div>
+        <div class="info"><strong>Location:</strong> Andhra Pradesh, India</div>
+        
+        <div class="note">
+            I usually respond within 24 hours.
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="form-card card">
+        <h2>Send a Message</h2>
+        
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="text" placeholder="Subject">
+            <textarea rows="5" placeholder="Your Message"></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>Designed and Built by Reshma. All rights reserved.</p>
+</footer>
+
+<script>
+// Initialize variables first
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animationId = null;
+let mouseX = 0;
+let mouseY = 0;
+
+// Canvas setup
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Particle class
+class Particle {
+    constructor() {
+        this.reset();
+    }
+    
+    reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.max(1, Math.random() * 2.5);
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.color = Math.random() > 0.5 ? '#e07a5f' : '#3d9a8b';
+    }
+    
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 100) {
+            const force = (100 - dist) / 100;
+            this.x -= dx * force * 0.02;
+            this.y -= dy * force * 0.02;
+        }
+        
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+            this.reset();
+        }
+    }
+    
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, Math.max(0.5, this.size), 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = Math.max(0.1, this.opacity);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+    }
+}
+
+// Create particles
+function initParticles() {
+    particles = [];
+    const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+}
+initParticles();
+
+// Animation loop
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+    
+    particles.forEach((p1, i) => {
+        particles.slice(i + 1).forEach(p2 => {
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = `rgba(224, 122, 95, ${Math.max(0.01, 0.1 * (1 - dist / 120))})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            }
+        });
+    });
+    
+    animationId = requestAnimationFrame(animate);
+}
+
+// Check reduced motion preference
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+if (!prefersReducedMotion.matches) {
+    animate();
+}
+
+// Mouse tracking
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// Header scroll effect
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Mobile menu toggle
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Close menu on link click
+navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+</script>
+
+</body>
+</html>
